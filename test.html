@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta
+      http-equiv="X-UA-Compatible"
+      content="IE=edge"
+    >
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    >
+    <title>Document</title>
+    <style>
+      html {
+        overflow: hidden;
+        height: 100%
+      }
+
+      body {
+        /* 视差元素的父级需要3D视角 */
+        perspective: 1px;
+        transform-style: preserve-3d;
+        height: 100%;
+        overflow-y: scroll;
+        overflow-x: hidden;
+      }
+
+      #app {
+        width: 100vw;
+        height: 200vh;
+        background: skyblue;
+        padding-top: 100px;
+      }
+
+      .one {
+        width: 500px;
+        height: 200px;
+        background: #409eff;
+        transform: translateZ(0px);
+        margin-bottom: 50px;
+      }
+
+      .two {
+        width: 500px;
+        height: 200px;
+        background: #67c23a;
+        transform: translateZ(-1px);
+        margin-bottom: 150px;
+      }
+
+      .three {
+        width: 500px;
+        height: 200px;
+        background: #e6a23c;
+        transform: translateZ(-2px);
+        margin-bottom: 150px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app">
+      <div class="one">one</div>
+      <div class="two">two</div>
+      <div class="three">three</div>
+    </div>
+    <script>
+      const arr = [1, 2, 3, 4, 5]
+      const newarr = arr.reduce(function (previousValue, current) { // reduce的特殊之处就在于它方法里面的形参 previousValue，nowValue，nowIndex，arr
+        console.log(previousValue + '-----' + current);
+        return previousValue + current
+      });
+      console.log(newarr); //输出 15
+      // ----------------------------------------------------------------------------- 
+      const newarr1 = arr.reduce(function (previousValue, current) { // reduce的特殊之处就在于它方法里面的形参
+        console.log(previousValue + '-----' + current);
+        return previousValue + current
+      }, 2);  // 这里的reduce有两个参数，第一个是函数、第二个是2，这里的2表示的是previousValue初始值为2,如果没有则默认为数组的第一个元素
+      console.log(newarr1); //输出 17
+      // -----------------------------------------------------------------------------
+      const newarr2 = arr.reduce(function (previousValue, current) { // reduce的特殊之处就在于它方法里面的形参
+        return previousValue * current
+      });
+      console.log(newarr2); //输出 120
+      // -----------------------------------------------------------------------------
+      let arr1 = ['name', 'age', 'long', 'short', 'long', 'name', 'name'] // 计算数组中元素出现的次数
+      let arrResult = arr1.reduce((pre, cur) => {
+        console.log(pre, cur)
+        if (cur in pre) {
+          pre[cur]++  // 理解一下为什么不可以使用pre.crr ++的形式,因为pre.crr的.crr默认表示为pre对象中一个的crr属性，且其值不可以更换  
+        } else {
+          pre[cur] = 1  // 这里意思是往pre对象中添加了name属性并且赋值为1
+        }
+        return pre
+      }, {});
+      console.log(arrResult) //输出{name: 3, age: 1, long: 2, short: 1} 重点理解
+      console.log(arrResult['name']); // 输出 3
+    </script>
+  </body>
+
+</html>
